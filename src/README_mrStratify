@@ -1,2 +1,0 @@
-- SSH to haddop-master/0 from juju-host\
-- Change to /home/ubuntu and run: python mrStrafied input.log -r hadoop > output
