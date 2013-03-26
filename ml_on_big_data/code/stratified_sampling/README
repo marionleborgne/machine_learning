@@ -1,0 +1,6 @@
+Authors: 
+Sebastien Soudan (sebastien@lyatiss.com)
+Marion Leborgne (leborgne.mar@gmail.com)
+
+
+Run: python mrStrafied input -r hadoop > output

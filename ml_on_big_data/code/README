@@ -1,0 +1,7 @@
+From Mike Bowles's class @ Hacker Dojo: Machine Learning on BigData using MapReduce
+
+
+mrjob_setup     - Setup file for MrJob
+char_counter    - Simple script to count chars in a file
+mean_variance   - Calculate mean and variance of a list of numbers using map reduce
+kMean           - Calculate kMeans
