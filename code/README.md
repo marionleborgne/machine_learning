@@ -1,5 +1,5 @@
 
-My contribution to Mike Bowles's class @ Hacker Dojo "Machine Learning on BigData using MapReduce".
+Added Stratified Sampling to code base. Adapated from Mike Bowles's class @ Hacker Dojo "Machine Learning on BigData using MapReduce".
 
-Check out `stratified_sampling` and `machine_learning/docs` for more details.
+Check out `machine_learning/docs` for more details on Stratified Sampling. And `mrjob_setup` for MrJob config.  
 
