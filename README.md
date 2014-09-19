@@ -7,4 +7,4 @@ Using MRJob to build scalable ML algos.
 
 See `code/stratified_sampling` for an implementation of Stratified Sampling. 
 
-Read more about Stratified Sampling with MapReduce in this [blog post](http://ebrain.io/stratified-sampling/)
+Read more about Stratified Sampling with MapReduce in my *blog post* at [ebrain.io](http://ebrain.io/stratified-sampling/)
