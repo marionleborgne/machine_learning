@@ -1,6 +1,3 @@
-Authors: 
-Sebastien Soudan (sebastien@lyatiss.com)
-Marion Leborgne (leborgne.mar@gmail.com)
+Learn more about how this Stratified Sampler is made at [ebrain.io](http://ebrain.io/stratified-sampling/)
 
-
-Run: python mrStrafied input -r hadoop > output
+Run with `python mrStrafied input -r hadoop > output`
