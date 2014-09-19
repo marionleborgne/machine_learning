@@ -3,4 +3,8 @@
 
 Using MRJob to build scalable ML algos.
 
-See `code/stratified_sampling` for an implementation of Stratified Sampling. And `docs/stratified_sampling` for a simple presentation given during Mike Bowles's class @ Hacker Dojo "Machine Learning on BigData using MapReduce".
+##Stratified Sampling
+
+See `code/stratified_sampling` for an implementation of Stratified Sampling. 
+
+Read more about Stratified Sampling with MapReduce in this [blog post](http://ebrain.io/stratified-sampling/)
