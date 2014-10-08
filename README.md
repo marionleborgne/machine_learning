@@ -1,10 +1,8 @@
+#Welcome to my Machine Learning Toolbox
 
-#Machine Learning with Map Reduce using the MRjob framework
+- `ml_basic_toolkit`: simple and lightweight reference for using the scikit learn library
+- `map_reduce`: Using MRJob to build scalable ML algos.
+- `deep_learning`: Deep Learning with Octave.
 
-Using MRJob to build scalable ML algos.
-
-##Stratified Sampling
-
-See `code/stratified_sampling` for an implementation of Stratified Sampling. 
-
-Read more about Stratified Sampling with MapReduce in my [blog post](http://ebrain.io/stratified-sampling/) at **ebrain.io**
+See `map_reducedocs/stratified_sampling` for a simple presentation given during Mike Bowles's class @ Hacker Dojo "Machine Learning on BigData using MapReduce".
+See `

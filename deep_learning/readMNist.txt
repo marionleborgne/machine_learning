@@ -1,0 +1,89 @@
+#load some text into a matrix
+load simpleMNist/zero.txt;
+#check dimensions
+size(zero)
+rows(zero)
+columns(zero)
+
+#print out some of the matrix
+zero(1:2,1:10)
+
+
+#have a look at the data
+examp = zeros(16,16);
+for i = 1:16
+examp(i,:) = zero(1,(1 + (i-1)*16):i*16);
+end
+imagesc(examp), colorbar, colormap gray
+
+load simpleMNist/one.txt;
+size(one)
+
+examp = zeros(16,16);
+for i = 1:16
+examp(i,:) = one(1,(1 + (i-1)*16):i*16);
+end
+imagesc(examp), colorbar, colormap gray
+
+#add 1 to matrices in order that missing data equate to 0
+zero0 = zero +1;
+one0 = one + 1;
+
+#define weight vectors, initialize as positive random numbers
+w0 = unifrnd(0,0.1,256,1);
+w1 = unifrnd(0,0.1,256,1);
+eps = 0.1;
+
+
+#run through zeros, increment weights corresponding to non-zero pixels if they contribute to zero 
+#output neuron.  decrement if they contribute to "one" output neuron
+
+
+for i=1:rows(zero0)
+for j = 1: columns(zero0)
+if zero0(i,j) > 0.01 && w0(j)< 1.0
+w0(j) = w0(j) + eps;
+end
+
+if zero0(i,j) > 0.01 && w1(j) > 0.0
+w1(j) = w1(j) - eps;
+end
+end
+end
+
+for i=1:rows(one0)
+for j = 1: columns(one0)
+if one0(i,j) > 0.01 && w0(j)> 0.0
+w0(j) = w0(j) - eps;
+end
+
+if one0(i,j) > 0.01 && w1(j) < 1.0
+w1(j) = w1(j) + eps;
+end
+end
+end
+
+
+examp0 = zeros(16,16);
+examp1 = zeros(16,16);
+for i = 1:16
+examp0(i,:) = w0((1 + (i-1)*16):i*16);
+examp1(i,:) = w1((1 + (i-1)*16):i*16);
+end
+imagesc(examp0), colorbar, colormap gray
+imagesc(examp1), colorbar, colormap gray
+
+
+error = 0.0;
+
+result0 = zero0*w0;
+result1 = zero0*w1;
+error = sum(result0 < result1)
+
+result0 = one0*w0;
+result1 = one0*w1;
+error = error + sum(result0>result1)
+
+#magnitudes
+sqrt(transpose(w0)*w0)
+sqrt(transpose(w1)*w1)

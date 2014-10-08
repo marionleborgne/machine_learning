@@ -1,0 +1,65 @@
+TODO 
+- autoEncoder & sparsity 
+- edge detection & deep belief nets
+- random forest
+
+--------------------------------------------------
+Class #2
+--------------------------------------------------
+
+NEURAL NETS
+	* http://en.wikibooks.org/wiki/Artificial_Neural_Networks/Neural_Network_Basics#Number_of_neurons_in_the_hidden_layer
+	* http://neuralnets.pbworks.com/w/file/fetch/65083569/backProp.txt
+
+
+GENETIC ALGORITHMS
+	* http://www.doc.ic.ac.uk/~nd/surprise_96/journal/vol1/hmw/article1.html
+	* implemetation of GA
+		After an initial population is randomly generated, the algorithm evolves the through three operators:
+		- selection which equates to survival of the fittest;
+		- crossover which represents mating between individuals;
+		- mutation which introduces random modifications.
+
+STACKED AUTO ENCODERS
+	* deep belief networks are not magic imbrication of pattern recognition
+		deep belief network are stacked auto encoders
+		http://deeplearning.stanford.edu/wiki/index.php/Stacked_Autoencoders
+		
+	* the concept is: 
+		1. you build an autoencoder and freeze the weights
+		2. throw away the last layer
+		3. build the next auto encoder & repeat 2 to 3
+
+	* Cool thing about STACKED auto encoders
+		* if you want you can add a last layer of neurons to perform classifcation
+		* you will do back propagation again, but not from scratch because THE WEIGHTS OF THE FIRST LAYERS ARE ALREDY INITIALIZED TO WHAT HAS BEEN FROZEN EARLIER
+	
+	* Deep belief nets advantage VS traditional NNets with same # of layers => saves time
+
+	* Deep belief nets VS hybrid algo (feature selection + calssification) => can solve NON LINEAR problems with a lot of discrepancies. (like image classification with a lot of little island of data. or text classification)
+		- read about Google cat self classification
+		- edge detection & deep belief nets
+
+	* Deep belief nets are useful for real hard problem that usual techniques cannot solve
+	* anyway with neural nets must always be used 
+	* it is uselful if you have data that has no Gaussian distribution but small data in the edges
+	* 
+
+
+HOPFIELD NETS
+	- hopfield networks are stacked neural network with only one layer
+		Neurons attract or repel each other
+		You can calculate the Energy of the network
+	- main idea: neurons that fire together, wire together
+	- Wij = 1/N * sum(Ei * Ej)
+		Where N is the number of binary pattern to be learn 
+		and Ei, Ej are the output value of the neurons (fired value)
+	- http://en.wikipedia.org/wiki/Hopfield_network
+
+
+
+BOLTZMAN MACHINES
+   - exactly like Hopfiled nets, but neurons are STOCHASTIC instead of BINARY (a probability value for each nearon )
+   - 1 or 0 assigned to each node with some probability
+   - neurons are selected one after another
+   - selected neurons fire (turn to 1) with probability P 

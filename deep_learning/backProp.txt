@@ -1,0 +1,187 @@
+#backprop for 0 / 1 classification
+cd /home/marion/_git/machine_learning/deep_learning/simpleMNist
+clear
+
+#load some text into a matrix
+load zero.txt;
+zero = zero + 1;
+load one.txt
+one = one + 1;
+
+#define activation function (logistic)
+function retval = phi (z)
+retval = 1 ./ (1+exp(-z));
+endfunction
+
+
+#Network Definition
+#
+#256 inputs
+#128 hidden layer
+#2 output layer (0,1)
+#fully connected feed-forward
+
+#Notations:
+#W1(128,256) - weight matrix from input to hidden layer
+#b1(128) - biases at input layer
+#W2(2,128) - weight matrix from hidden to output layer
+#b2(2) - biases at layer 2
+#suppose logistic neurons in hidden and output layers
+#z2 - W1*input' + b1 (128 column vector)
+#a2 - phi(z2)  (128 column vector)
+#z3 - W2*a2 + b2  (2 vector)
+#a3 - phi(z3)  (2 vector)
+#d3 =-(yi - a3i) .* phi'(z3)  (2-vector - component-wise product of yi - a3i and f'(z3))
+#
+#d2 = (W2' d3) .* f'(z2)
+
+#initialize weights and biases
+W1 = unifrnd(-1.0, 1.0, 128, 256);
+b1 = unifrnd(-1.0, 1.0, 128, 1);
+W2 = unifrnd(-1.0, 1.0, 2, 128);
+b2 = unifrnd(-1.0, 1.0, 2, 1);
+#pick a step-size
+eps = 0.5;
+lambda = 1.0;
+
+#Begin Iteration
+#form zero matrices in which to accumulate increments
+dW1 = zeros(128, 256);
+db1 = zeros(128,1);
+dW2 = zeros(2,128);
+db2 = zeros(2,1);
+
+error0 = zeros(rows(zero),2);
+error1 = zeros(rows(one),2);
+
+
+
+#batch gradient descent
+########################
+
+#start with zero examples
+#one example at a time.  
+
+truth = [1 
+0];
+for i = 1:rows(zero)
+#test case Xin = transpose(zero(1,:));
+Xin = transpose(zero(i,:));
+
+#forward pass
+a1 = Xin;
+z2 = W1*Xin + b1;
+a2 = phi(z2);
+z3 = W2*a2 + b2;
+a3 = phi(z3);
+error0(i,:) = transpose(truth-a3);
+
+#backprop - calc deltas
+d3 = -(truth - a3) .* a3 .* (1-a3);
+d2 = transpose(W2)*d3 .* a2 .*(1-a2);
+
+dW1 = dW1 + d2*transpose(a1);
+db1 = db1 + d2;
+
+dW2 = dW2 + d3*transpose(a2);
+db2 = db2 + d3;
+end
+
+# truth represnt the correct answer ( 1 0 is true whereas 0 1 is false)
+truth = [0 1];
+for i = 1:rows(one)
+#test case Xin = transpose(one(1,:));
+Xin = transpose(one(i,:));
+
+#forward pass
+a1 = Xin;
+z2 = W1*Xin + b1;
+a2 = phi(z2);
+z3 = W2*a2 + b2;
+a3 = phi(z3);
+error1(i,:) = transpose(truth-a3);
+
+#backprop - calc deltas
+# derivative of the output error with repsect to the weights
+# note that ".* a3 .* (1-a3)" is the derivative of the activation function
+
+# f' = f * (1-f)
+d3 = -(truth - a3) .* a3 .* (1-a3);  
+d2 = transpose(W2)*d3 .* a2 .*(1-a2);
+
+dW1 = dW1 + d2*transpose(a1);
+db1 = db1 + d2;
+
+dW2 = dW2 + d3*transpose(a2);
+db2 = db2 + d3;
+end
+
+##
+#Weight Update Eqn
+
+
+############################################
+#regularized weight updates
+##########################################
+#Update weights
+m = rows(zero) + rows(one);
+W1 = W1 - eps*((1/m)*dW1 + lambda*W1);
+b1 = b1 - eps*(1/m)*db1;
+W2 = W2 - eps*((1/m)*dW2 + lambda*W2);
+b2 = b2 - eps*(1/m)*db2;
+
+#check convergence
+norm(dW1*(1/m) + lambda*W1) 
+norm(db1*(1/m))
+norm(dW2*(1/m) + lambda*W2)
+norm(db2*(1/m))
+norm(error0)
+norm(error1)
+
+#End Iteration
+
+iTry = 1;
+
+#Weight visualization
+wImage = zeros(16,16);
+wTemp = W1(iTry,:);
+for i = 1:16
+wImage(i,:) = wTemp((1 + (i-1)*16):i*16);
+end
+imagesc(wImage), colorbar, colormap gray
+
+############################################
+#regularized weight updates
+##########################################
+#Update weights
+m = rows(zero) + rows(one);
+W1 = W1 - eps*((1/m)*dW1 + lambda*W1);
+b1 = b1 - eps*(1/m)*db1;
+W2 = W2 - eps*((1/m)*dW2 + lambda*W2);
+b2 = b2 - eps*(1/m)*db2;
+
+#check convergence
+norm(dW1*(1/m) + lambda*W1) 
+norm(db1*(1/m))
+norm(dW2*(1/m) + lambda*W2)
+norm(db2*(1/m))
+norm(error0)
+norm(error1)
+
+
+########################################### 
+#Update weights wo weight penalty term
+############################################
+m = rows(zero) + rows(one);
+W1 = W1 - eps*(1/m)*dW1;
+b1 = b1 - eps*(1/m)*db1;
+W2 = W2 - eps*(1/m)*dW2;
+b2 = b2 - eps*(1/m)*db2;
+
+#check convergence
+norm(dW1*(1/m)) 
+norm(db1*(1/m))
+norm(dW2*(1/m))
+norm(db2*(1/m))
+norm(error0)
+norm(error1)
